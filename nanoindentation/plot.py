@@ -25,10 +25,10 @@ def plotTestingMethod(self, saveFig=False, show=True):
   ax1.axhline(0,color='C0', linestyle='dashed')
   ax2.axhline(0,color='C1', linestyle='dashed')
   ax1.set_xlabel(r"time [$\mathrm{s}$]")
-  ax2.set_ylabel(r"depth [$\mathrm{\mu m}$]", color='C1', fontsize=14)
-  ax1.set_ylabel(r"force [$\mathrm{mN}$]", color='C0', fontsize=14)
+  ax2.set_ylabel(r"depth [$\mathrm{\mu m}$]", color='C1', fontsize=16)
+  ax1.set_ylabel(r"force [$\mathrm{mN}$]", color='C0', fontsize=16)
   plt.grid()
-  plt.show()
+  #plt.show() #vy: was not saving the right figure for i.plottestingmethod() with this plt.show
   if saveFig:
     plt.savefig(self.fileName.split('.')[0]+".png", dpi=150, bbox_inches='tight')
   if show:
