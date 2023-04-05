@@ -1,8 +1,8 @@
 """Plotting of nanoindentation data"""
-import traceback
 import numpy as np
 import matplotlib.pyplot as plt
 from .definitions import Method
+#import definitions
 
 def plotTestingMethod(self, saveFig=False, show=True, double=False):
   """
@@ -79,14 +79,13 @@ def plot(self, saveFig=False, show=True):
     if maskUnload is not None:
       ax.plot(self.h[maskUnload], self.unloadingPowerFunc(self.h[maskUnload],*optPar),\
         'C1', label='fit powerlaw')
-    if len(self.h[self.valid])<101:  #allow for 100 unloading segments to be plotted
-      ax.plot(self.h[self.valid],self.p[self.valid],"or",label="max", markersize=10)
-      ax.plot(self.hc, np.zeros_like(self.hc),"ob", label="hc", markersize=10)
-    if len(self.hc)==1:
+    ax.plot(self.h[self.valid],self.p[self.valid],"or",label="max", markersize=10)
+    ax.plot(self.hc, np.zeros_like(self.hc),"ob", label="hc", markersize=10)
+    if len(self.hc)<2:
       ax.plot(h_[0],p_[0],'og',)
       ax.plot(h_[-1],p_[-1],'og', label="fit domain")
       try:
-        h_ = np.linspace(self.hc,self.h[self.valid].max(),10)
+        h_ = np.linspace(self.hc,self.h[self.valid],10)
         if self.evaluateStiffnessAtMax:
           stiffnessLineInterceptY = self.p[self.valid]-self.slope*self.h[self.valid]
         else:
@@ -94,7 +93,6 @@ def plot(self, saveFig=False, show=True):
         ax.plot(h_,   self.slope*h_+stiffnessLineInterceptY, 'r--', lw=2, label='stiffness')
       except:
         print('**Error something is wrong with plotting unloading-line')
-        print(traceback.format_exc())
     ax.legend(loc=0, numpoints=1)
   else:
     ax.plot(self.h[self.iLHU[0]],self.p[self.iLHU[0]],"or",label="specific", markersize=10)
