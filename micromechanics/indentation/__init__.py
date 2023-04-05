@@ -71,21 +71,7 @@ class Indentation:
     self.evaluateStiffnessAtMax = True                      #evaluate stiffness at maximum or at end of power-law fit domain
     self.config = {}                                        #storage for surface index, ignored tests, thresholds for surface
     self.driftRate = driftRate
-    self.plotAllFigs = False
-    
-    # Input using **kwargs
-    self.min_size_fluctuation = kwargs.get('min_size_fluctuation', 10)            #used by identifyLoadHoldUnload(self,plot=False) to clean small fluctuations                   
-    self.zeroLoadDepth = kwargs.get('zeroLoadDepth', False)                       #zero Load and zero Depth at contact
-    self.min_loading_Force = kwargs.get('min_loading_Force', 0.001)              #minium loading Force to identifyLoadHoldUnload
-    self.progressBar_calibration = kwargs.get('progressBar_calibration', False)
-    self.progressBar_FrameStiffness = kwargs.get('progressBar_FrameStiffness', False)
-    self.progressBar_HE = kwargs.get('progressBar_HE', False)
-    unloadPMax = kwargs.get('unloadPMax', False)
-    unloadPMin = kwargs.get('unloadPMin', False)
-    zeroGradDelta = kwargs.get('zeroGradDelta', False)
-    self.showFindSurface = kwargs.get('showFindSurface', False)
-    self.success_identified_TestList=[]
-    self.success_identified_PopIn=[]
+
     if tip is None:
       tip = Tip()
     self.tip = tip
@@ -118,18 +104,9 @@ class Indentation:
       # KLA, Agilent, Keysight, MTS
       self.vendor = Vendor.Agilent
       self.fileType = FileType.Multi
-      if unloadPMax:
-        self.unloadPMax = unloadPMax
-      else:
-        self.unloadPMax = 0.999
-      if unloadPMin:
-        self.unloadPMin = unloadPMin
-      else:
-        self.unloadPMin = 0.5
-      if zeroGradDelta:
-          self.zeroGradDelta = zeroGradDelta
-      else:
-          self.zeroGradDelta = 0.02
+      self.unloadPMax = 0.999
+      self.unloadPMin = 0.5
+      self.zeroGradDelta = 0.02
       success = self.loadAgilent(fileName)
     if (fileName.endswith(".hld") or fileName.endswith(".txt")) and not success:
       # Hysitron
